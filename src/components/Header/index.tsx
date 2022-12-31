@@ -1,10 +1,14 @@
-import { HeaderConatiner } from './styles'
+import { HeaderContainer } from './styles'
 import logoGit from '../../assets/git-logo.svg'
+import backgroundEffectLeft from '../../assets/backgroundEffectLeft.svg'
+import backgroundEffectRight from '../../assets/backgroundEffectRight.svg'
 
 export function Header() {
   return (
-    <HeaderConatiner>
+    <HeaderContainer>
+      <img src={backgroundEffectLeft} alt="" />
       <img src={logoGit} alt="" />
-    </HeaderConatiner>
+      <img src={backgroundEffectRight} alt="" />
+    </HeaderContainer>
   )
 }
