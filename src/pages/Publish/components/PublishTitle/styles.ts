@@ -1,7 +1,6 @@
 import styled from 'styled-components'
 
-export const AvatarContainer = styled.section`
-  display: flex;
+export const PublishTitleContainer = styled.header`
   gap: 2rem;
   padding: 2rem;
   margin-top: -5.5rem;
@@ -16,51 +15,39 @@ export const AvatarContainer = styled.section`
   box-shadow: 0px 2px 28px rgba(0, 0, 0, 0.2);
   box-shadow: 0px 2px 28px rgba(0, 0, 0, 0.2);
 
-  img {
-    width: 148px;
-    height: 148px;
-
-    border-radius: 10px;
-  }
-
-  div {
-    flex: 1;
-    p {
-      margin-top: 8px;
-    }
-
-    div {
-      margin-top: 24px;
-    }
-  }
-
-  .avatarName {
+  nav {
     display: flex;
-
     justify-content: space-between;
 
     a {
       display: flex;
-      gap: 0.3rem;
-      text-align: center;
+      align-items: center;
+      gap: 0.5rem;
 
-      text-transform: uppercase;
+      font-size: 0.75rem;
       text-decoration: none;
+
       color: ${(props) => props.theme['blue-500']};
     }
   }
 
-  .avatarInfo {
+  h1 {
+    margin-top: 1.25rem;
+  }
+
+  .titleDescriptions {
     display: flex;
-    align-items: center;
     gap: 2rem;
+    align-items: center;
 
-    span {
-      i {
-        margin-right: 0.5rem;
+    margin-top: 0.5rem;
 
-        color: ${(props) => props.theme['slate-400']};
-      }
+    div {
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+
+      color: ${(props) => props.theme['slate-300']};
     }
   }
 `
