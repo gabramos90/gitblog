@@ -4,7 +4,7 @@ export const SearchBarContainer = styled.div`
   padding-top: 13rem;
   display: flex;
 
-  form {
+  .form {
     display: flex;
     flex-direction: column;
     flex: 1;

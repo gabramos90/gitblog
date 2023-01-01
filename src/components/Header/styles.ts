@@ -7,7 +7,7 @@ export const HeaderContainer = styled.header`
   position: relative;
 
   padding-top: 2rem;
-  padding-bottom: 2rem;
+  padding-bottom: 3rem;
 
   background-color: ${(props) => props.theme['slate-700']};
 

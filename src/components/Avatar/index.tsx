@@ -2,8 +2,6 @@ import { AvatarContainer } from './styles'
 import '@fortawesome/fontawesome-free/css/all.min.css'
 import { api } from '../../lib/axios'
 import { useState, useEffect } from 'react'
-import { UserData } from '../SearchUser'
-import { useLocation } from 'react-router-dom'
 
 interface DataProps {
   avatar_url: string
@@ -15,30 +13,29 @@ interface DataProps {
   company: string
 }
 
-interface LocationType {
-  state: UserData
+export interface UserProps {
+  userLogin: string
 }
 
-export function Avatar() {
-  const { state } = useLocation() as unknown as LocationType
+interface Props {
+  userLog: UserProps
+}
 
+export function Avatar({ userLog }: Props) {
   const [user, setUSer] = useState<DataProps>([])
   const [followers, setFollowers] = useState('')
 
-
-
-  const userAPI = '/rafaballerini'
-  const userAPIFollowers = '/rafaballerini/followers'
+  const login = userLog.user
 
   async function getData() {
-    const response = await api.get(userAPI)
+    const response = await api.get(`/${login}`)
     const userData = await response.data
 
     setUSer(userData)
   }
 
   async function getFollowers() {
-    const response = await api.get(userAPIFollowers)
+    const response = await api.get(`/${login}/followers`)
     const userFollowers = await response.data
 
     setFollowers(userFollowers)
@@ -47,7 +44,9 @@ export function Avatar() {
   useEffect(() => {
     getData()
     getFollowers()
-  }, [])
+  }, [userLog])
+
+  console.log(login)
 
   return (
     <AvatarContainer>

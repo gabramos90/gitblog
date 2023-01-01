@@ -3,7 +3,7 @@ import { SearchBarContainer } from './styles'
 export function SearchBar() {
   return (
     <SearchBarContainer>
-      <form action="">
+      <div className="form">
         <div>
           <label htmlFor="">
             <strong>Publicações</strong>
@@ -11,7 +11,7 @@ export function SearchBar() {
           <span>6 publicações</span>
         </div>
         <input type="text" placeholder="Buscar conteúdo" />
-      </form>
+      </div>
     </SearchBarContainer>
   )
 }
