@@ -4,7 +4,7 @@ export const AvatarContainer = styled.section`
   display: flex;
   gap: 2rem;
   padding: 2rem;
-  margin-top: -5.5rem;
+  margin-top: -2.5rem;
 
   border-radius: 10px;
   position: absolute;

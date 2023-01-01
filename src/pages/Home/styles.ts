@@ -8,6 +8,7 @@ export const HomeContainer = styled.div`
   margin: 0 auto;
 
   padding-bottom: 100px;
+  position: relative;
 `
 
 export const PostWrapper = styled.div`

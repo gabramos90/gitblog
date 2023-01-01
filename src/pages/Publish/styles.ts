@@ -6,5 +6,12 @@ export const PublishWrapper = styled.div`
   flex-wrap: wrap;
   justify-content: center;
 
+  max-width: 864px;
+
   margin: 0 auto;
+
+  .postContent {
+    margin-top: 80px;
+    padding: 40px;
+  }
 `
