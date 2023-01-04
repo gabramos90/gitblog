@@ -1,49 +1,75 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Avatar } from '../../components/Avatar'
 import { Post } from '../../components/Post'
 import { SearchBar } from './components/SearchBar'
-import { SearchUser } from '../../components/SearchUser'
 import { HomeContainer, PostWrapper } from './styles'
-import { useForm, FormProvider } from 'react-hook-form'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { api } from '../../lib/axios'
+import { FormProvider, useForm } from 'react-hook-form'
+import * as z from 'zod'
 
-/* import * as z from 'zod'
+const username = import.meta.env.VITE_GITHUB_USERNAME
+const reponame = import.meta.env.VITE_GITHUB_REPONAME
 
-const schema = z.object({
-  user: z.string().min(1, { message: 'Informe o nome do usuário' }),
-})
-
-export type userLog = z.infer<typeof schema>
-
-export type ConfirmUserSearch = userLog
- */
-export interface UserProps {
-  userLogin: string
+export interface IssuesProps {
+  title: string
+  body: string
+  created_at: string
+  number: number
+  html_url: string
+  comments: number
+  user: {
+    login: string
+  }
 }
 
-export function Home() {
-  const methods = useForm()
-  const [userLog, setuserLog] = useState({ user: 'rafaballerini' })
+export const issuesFormValidationSchema = z.object({
+  query: z.string(),
+})
 
-  function onSubmit(userLogin: UserProps) {
-    setuserLog(userLogin)
+export type IssueValidattion = z.infer<typeof issuesFormValidationSchema>
+
+type IssuesFormData = IssueValidattion
+
+export function Home() {
+  const [texto, setTexto] = useState('')
+  const methods = useForm<IssuesFormData>()
+  const [issues, setIssues] = useState<IssuesProps[]>([])
+
+  function onSubmit(data: IssuesFormData) {
+    return setTexto(data.query)
   }
 
-  console.log(userLog.user)
+  async function getIssuesData() {
+    /* const response = await api.get(`/repos/${username}/${reponame}/issues`) */
+    const response = await api.get(
+      `search/issues?q=${texto}%20repo:${username}/${reponame}`,
+    )
+    const issuesData = await response.data.items
+
+    setIssues(issuesData)
+    console.log(issuesData)
+  }
+
+  useEffect(() => {
+    getIssuesData()
+  }, [texto])
+
+  const issuesCounter = issues.length
 
   return (
     <HomeContainer>
+      <Avatar />
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit(onSubmit)}>
-          <SearchUser />
-          <Avatar userLog={userLog} />
-          <SearchBar />
-          <PostWrapper>
-            <Post />
-            <Post />
-            <Post />
-          </PostWrapper>
+          <SearchBar issuesCounter={issuesCounter} />
         </form>
       </FormProvider>
+      <PostWrapper>
+        {issues.map((issue) => (
+          <Post key={issue.number} issue={issue} />
+        ))}
+      </PostWrapper>
     </HomeContainer>
   )
 }

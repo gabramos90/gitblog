@@ -1,32 +1,37 @@
 import { PublishTitleContainer } from './styles'
+import { relativeDateFormatter } from '../../../../utils/formatter'
+import { LocationType } from '../..'
+import { Link } from 'react-router-dom'
 
-export function PublishTitle() {
+export function PublishTitle({ state }: LocationType) {
+  const formattedDate = relativeDateFormatter(state.created_at)
+
   return (
     <PublishTitleContainer>
       <nav>
-        <a href="#">
+        <Link to={'/'}>
           <i className="fa-solid fa-chevron-left"></i>
           <span>VOLTAR</span>
-        </a>
-        <a href="#">
+        </Link>
+        <a href={state.html_url}>
           <span>VER NO GITHUB</span>
           <i className="fa-solid fa-arrow-up-right-from-square "></i>
         </a>
       </nav>
-      <h1>JavaScript data types and data structures</h1>
+      <h1>{state.title}</h1>
       <div>
         <div className="titleDescriptions">
           <div>
             <i className="fa-brands fa-github fa-lg"></i>
-            <span>cameronwll</span>
+            <span>{state.user.login}</span>
           </div>
           <div>
             <i className="fa-solid fa-calendar fa-lg"></i>
-            <span>Há 1 dia</span>
+            <span>{formattedDate}</span>
           </div>
           <div>
             <i className="fa-solid fa-comment fa-lg"></i>
-            <span>5 comentários</span>
+            <span>{state.comments} comentários</span>
           </div>
         </div>
       </div>

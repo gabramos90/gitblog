@@ -1,6 +1,13 @@
+import { useFormContext } from 'react-hook-form'
 import { SearchBarContainer } from './styles'
 
-export function SearchBar() {
+interface Props {
+  issuesCounter: number
+}
+
+export function SearchBar({ issuesCounter }: Props) {
+  const { register } = useFormContext()
+
   return (
     <SearchBarContainer>
       <div className="form">
@@ -8,9 +15,13 @@ export function SearchBar() {
           <label htmlFor="">
             <strong>Publicações</strong>
           </label>
-          <span>6 publicações</span>
+          <span>{issuesCounter} publicações</span>
         </div>
-        <input type="text" placeholder="Buscar conteúdo" />
+        <input
+          type="text"
+          placeholder="Buscar conteúdo"
+          {...register('query')}
+        />
       </div>
     </SearchBarContainer>
   )

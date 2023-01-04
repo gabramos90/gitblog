@@ -1,18 +1,30 @@
+import { useNavigate } from 'react-router-dom'
+import { IssuesProps } from '../../pages/Home'
+import { relativeDateFormatter } from '../../utils/formatter'
 import { PostContainer } from './styles'
-export function Post() {
+
+interface Props {
+  issue: IssuesProps
+}
+
+export function Post({ issue }: Props) {
+  const formattedDate = relativeDateFormatter(issue.created_at)
+
+  const navigate = useNavigate()
+
+  function handleSelectIssue() {
+    navigate(`/issue/${issue.number}`, {
+      state: issue,
+    })
+  }
+
   return (
-    <PostContainer>
+    <PostContainer onClick={handleSelectIssue}>
       <div>
-        <h3>JavaScript data types and data structures</h3>
-        <span>Há 1 dia</span>
+        <h3>{issue.title}</h3>
+        <span>{formattedDate}</span>
       </div>
-      <p>
-        Programming languages all have built-in data structures, but these often
-        differ from one language to another. This article attempts to list the
-        built-in data structures available in JavaScript and what properties
-        they have. These can be used to build other data structures. Wherever
-        possible, comparisons with other languages are drawn.
-      </p>
+      {issue.body <= '' ? <p>Esse post está vazio</p> : <p>{issue.body}</p>}
     </PostContainer>
   )
 }

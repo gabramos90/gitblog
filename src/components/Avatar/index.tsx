@@ -13,29 +13,21 @@ interface DataProps {
   company: string
 }
 
-export interface UserProps {
-  userLogin: string
-}
+const username = import.meta.env.VITE_GITHUB_USERNAME
 
-interface Props {
-  userLog: UserProps
-}
-
-export function Avatar({ userLog }: Props) {
+export function Avatar() {
   const [user, setUSer] = useState<DataProps>([])
   const [followers, setFollowers] = useState('')
 
-  const login = userLog.user
-
   async function getData() {
-    const response = await api.get(`/${login}`)
+    const response = await api.get(`/users/${username}`)
     const userData = await response.data
 
     setUSer(userData)
   }
 
   async function getFollowers() {
-    const response = await api.get(`/${login}/followers`)
+    const response = await api.get(`/users/${username}/followers`)
     const userFollowers = await response.data
 
     setFollowers(userFollowers)
@@ -44,9 +36,7 @@ export function Avatar({ userLog }: Props) {
   useEffect(() => {
     getData()
     getFollowers()
-  }, [userLog])
-
-  console.log(login)
+  }, [])
 
   return (
     <AvatarContainer>
